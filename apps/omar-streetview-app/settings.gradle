@@ -1,0 +1,3 @@
+include 'client', 'omar-streetview-app'
+
+project(':omar-streetview-app').projectDir = "${rootDir}/server" as File

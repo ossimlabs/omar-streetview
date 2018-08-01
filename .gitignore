@@ -1,0 +1,17 @@
+Thumbs.db
+.DS_Store
+.gradle
+build/
+out/
+node_modules
+.idea
+*.iml
+*.ipr
+*.iws
+.project
+.settings
+.classpath
+*bundle.js
+bin/
+
+prodDb.mv.db

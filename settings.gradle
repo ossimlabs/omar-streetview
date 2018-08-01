@@ -1,0 +1,17 @@
+pluginManagement {
+  repositories {
+    maven { url "${ System.getenv('ARTIFACTORY_URL') }/ossim-deps" }
+    gradlePluginPortal()
+  }
+}
+def final O2_DEV_HOME = System.getenv('O2_DEV_HOME')
+
+if ( O2_DEV_HOME ) {
+
+    include 'omar-streetview-app', 'client'
+
+    project(':omar-streetview-app').projectDir = "${rootDir}/apps/omar-streetview-app/server" as File
+    project(':client').projectDir = "${rootDir}/apps/omar-streetview-app/client" as File
+
+}
+

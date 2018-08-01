@@ -1,0 +1,25 @@
+task copyClientResources(dependsOn: ':client:build') {
+    group = 'build'
+    description = 'Copy client resources into server'
+    doLast {
+        copy {
+            from project(':client').buildDir.absolutePath
+            into "${project(':omar-streetview-app').buildDir}/resources/main/public"
+        }
+    }
+}
+task assembleServerAndClient(dependsOn: ['copyClientResources', ':omar-streetview-app:assemble']) {
+    group = 'build'
+    description = 'Build combined server & client JAR'
+    doLast {
+        copy {
+            from fileTree(dir: "${project(':omar-streetview-app').buildDir}/libs/")
+            into "$rootDir/build/libs"
+        }
+
+        logger.quiet "JAR generated at $rootDir/build/. It combines the server and client projects."
+    }
+}
+task(":omar-streetview-app:assemble").mustRunAfter(copyClientResources)
+
+task assemble(dependsOn: assembleServerAndClient)
