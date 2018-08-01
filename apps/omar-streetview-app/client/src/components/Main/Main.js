@@ -1,4 +1,4 @@
-import { SERVER_URL, CONTEXT_PATH } from "../../config";
+//import { SERVER_URL, CONTEXT_PATH } from "../../config";
 import React, { Component } from "react";
 import { Collapse, Tooltip, OverlayTrigger } from "react-bootstrap";
 import "whatwg-fetch";
@@ -23,11 +23,11 @@ class Main extends Component {
     // console.log('location', CONTEXT_PATH);
     //console.log(`fetchStreetViewMetadata: ${svid}`);
 
-    fetch(`${SERVER_URL}/streetView?svid=${svid}`)
+    fetch(`http://localhost:8080/omar-streetview/streetView?svid=${svid}`)
       .then(r => r.json())
       .then(json => {
         if (json.error === 500) {
-          this.props.history.push(`${CONTEXT_PATH}/error`);
+          this.props.history.push(`/error`);
         }
         //console.log(json);
         this.setState({ streetViewMetadata: json });
@@ -39,7 +39,7 @@ class Main extends Component {
   };
 
   handleSetUrlSvid = svid => {
-    this.props.history.push(`${CONTEXT_PATH}/streetview/${svid}`);
+    this.props.history.push(`/streetview/${svid}`);
   };
 
   handleMapData = data => {
@@ -58,8 +58,6 @@ class Main extends Component {
   componentWillReceiveProps(newProps) {
     this.fetchStreetViewMetadata(newProps.match.params.svid);
   }
-
-
 
   render() {
     if (this.state.streetViewMetadata.length === 0) {
@@ -83,28 +81,47 @@ class Main extends Component {
       <div>
         <div className="row">
           <div className="col-md-12">
-
-            <div id="btnMapOverview" className="btn-group" role="group" aria-label="Basic example">
+            <div
+              id="btnMapOverview"
+              className="btn-group"
+              role="group"
+              aria-label="Basic example"
+            >
               <OverlayTrigger placement="left" overlay={overViewMapTooltip}>
-                <button onClick={this.handleToggleOverviewMap} type="button" className="btn btn-success">
-                  <span className="glyphicon glyphicon-globe" aria-hidden="true" />
+                <button
+                  onClick={this.handleToggleOverviewMap}
+                  type="button"
+                  className="btn btn-success"
+                >
+                  <span
+                    className="glyphicon glyphicon-globe"
+                    aria-hidden="true"
+                  />
                 </button>
               </OverlayTrigger>
               <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
-                <a id="btnDownload" className="btn btn-success" href={`${SERVER_URL}/streetView/getImage?svid=${m.properties.svid}&download=true`} download >
-                  <span className="glyphicon glyphicon-download-alt" aria-hidden="true" />
+                <a
+                  id="btnDownload"
+                  className="btn btn-success"
+                  href={`/streetView/getImage?svid=${
+                    m.properties.svid
+                  }&download=true`}
+                  download
+                >
+                  <span
+                    className="glyphicon glyphicon-download-alt"
+                    aria-hidden="true"
+                  />
                 </a>
               </OverlayTrigger>
             </div>
 
             <Collapse in={this.state.overviewMapOpen} appear={true}>
-
-                <OlMap
-                  id="mapComponent"
-                  metadata={m}
-                  mapData={this.state.direction}
-                />
-
+              <OlMap
+                id="mapComponent"
+                metadata={m}
+                mapData={this.state.direction}
+              />
             </Collapse>
 
             <Streetview
@@ -115,11 +132,8 @@ class Main extends Component {
               handleMapData={this.handleMapData}
               mapData={this.state.direction}
             />
-
           </div>
-
         </div>
-
       </div>
     );
   }

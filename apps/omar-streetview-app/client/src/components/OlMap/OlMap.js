@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { SERVER_URL } from "../../config";
+//import { SERVER_URL } from "../../config";
 
 import "ol/ol.css";
 import Map from "ol/map";
@@ -33,7 +33,7 @@ class OlMap extends Component {
 
     const streetviewLayer = new TileLayer({
       source: new TileWMS({
-        url: `${SERVER_URL}/mapView/getTile`,
+        url: `http://localhost:8080/omar-streetview/mapView/getTile`,
         params: {
           LAYERS: "road_streetview_subset",
           FORMAT: "image/png"
