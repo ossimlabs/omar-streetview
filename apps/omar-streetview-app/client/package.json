@@ -17,5 +17,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "/omar-streetview"
+  "homepage": "https://omar-dev.ossim.io/omar-streetview"
 }
