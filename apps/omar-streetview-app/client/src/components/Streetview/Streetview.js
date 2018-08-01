@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import { CONTEXT_PATH } from "../../config";
+import { SERVER_URL } from "../../config";
 import { withRouter } from "react-router-dom";
 import "whatwg-fetch";
 
@@ -44,7 +44,7 @@ class Streetview extends Component {
     }
     _this.viewer = window.pannellum.viewer("panorama", {
       type: "equirectangular",
-      panorama: `http://localhost:8080/omar-streetview/streetView/getImage?svid=${svid}`,
+      panorama: `${SERVER_URL}/streetView/getImage?svid=${svid}`,
       autoLoad: true,
       compass: true,
       yaw: yaw,

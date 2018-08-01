@@ -1,4 +1,4 @@
-//import { SERVER_URL, CONTEXT_PATH } from "../../config";
+import { SERVER_URL } from "../../config";
 import React, { Component } from "react";
 import { Collapse, Tooltip, OverlayTrigger } from "react-bootstrap";
 import "whatwg-fetch";
@@ -23,7 +23,7 @@ class Main extends Component {
     // console.log('location', CONTEXT_PATH);
     //console.log(`fetchStreetViewMetadata: ${svid}`);
 
-    fetch(`http://localhost:8080/omar-streetview/streetView?svid=${svid}`)
+    fetch(`${SERVER_URL}/streetView?svid=${svid}`)
       .then(r => r.json())
       .then(json => {
         if (json.error === 500) {
@@ -103,7 +103,7 @@ class Main extends Component {
                 <a
                   id="btnDownload"
                   className="btn btn-success"
-                  href={`/streetView/getImage?svid=${
+                  href={`${SERVER_URL}/streetView/getImage?svid=${
                     m.properties.svid
                   }&download=true`}
                   download

@@ -8,8 +8,8 @@ export const CONTEXT_PATH = window.location.pathname
   .join("/");
 console.log("CONTEXT_PATH: ", CONTEXT_PATH);
 
-// export const SERVER_URL = prod
-//   ? CONTEXT_PATH
-//   : `http://localhost:8080${CONTEXT_PATH}`;
+export const SERVER_URL = prod
+  ? CONTEXT_PATH
+  : `http://localhost:8080${CONTEXT_PATH}`;
 
-// console.log("SERVER_URL: ", SERVER_URL);
+console.log("SERVER_URL === ", SERVER_URL);
