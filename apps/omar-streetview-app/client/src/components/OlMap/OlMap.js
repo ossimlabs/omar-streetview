@@ -55,8 +55,8 @@ class OlMap extends Component {
           anchor: [0.5, 0.8],
           anchorXUnits: "fraction",
           anchorYUnits: "fraction",
-          src: `${SERVER_URL}/libs/bluedot-icon-small.png`
-          //src: "./images/up-chevron-button-128-hover.png"
+          //src: `${SERVER_URL}/libs/bluedot-icon-small.png`
+          src: "/libs/bluedot-icon-small.png"
         })
       })
     });
