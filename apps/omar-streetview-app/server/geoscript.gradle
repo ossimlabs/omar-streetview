@@ -1,4 +1,6 @@
 repositories {
+  maven { url "https://nexus.ossim.io/nexus/content/repositories/ossim-deps" }
+  maven { url "https://artifactory.ossim.io/artifactory/ossim-deps" }
 	maven { url "http://download.osgeo.org/webdav/geotools/" }
 	maven { url "http://repo.boundlessgeo.com/main" }
 	maven { url "http://maven.geo-solutions.it/" }
@@ -8,7 +10,7 @@ repositories {
 
 dependencies {
 	compile "commons-beanutils:commons-beanutils:1.9.3"
-	
+
 	compile( "org.geoscript:geoscript-groovy:1.11.0" ) {
 		exclude module: "ehcache"
 		exclude module: "groovy-all"
