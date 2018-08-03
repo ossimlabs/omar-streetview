@@ -1,6 +1,6 @@
 #btnMapOverview {
   position: absolute;
-  right: 24px;
-  top: 5px;
+  left: 24px;
+  bottom: 5px;
   z-index: 9999;
 }
