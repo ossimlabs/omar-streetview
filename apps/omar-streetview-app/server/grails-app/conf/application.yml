@@ -143,3 +143,8 @@ environments:
       shapeFile:
         baseDir: /data/beijing-streetview
         layerName: road_streetview_subset
+
+---
+security:
+    basic:
+        enabled: true
