@@ -146,5 +146,8 @@ environments:
 
 ---
 security:
+    user:
+        name: name
+        password: password
     basic:
         enabled: true
