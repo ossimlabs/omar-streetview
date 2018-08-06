@@ -150,4 +150,4 @@ security:
     name: name
     password: password
   basic:
-    enabled: true
+    enabled: false
