@@ -82,27 +82,14 @@ class Main extends Component {
         <div className="row">
           <div className="col-md-12">
             <div
-              id="btnMapOverview"
-              className="btn-group"
+              id="btnMapOverview2"
+              className="btn-group-vertical2 btn-group-sm2"
               role="group"
-              aria-label="Basic example"
             >
-              <OverlayTrigger placement="left" overlay={overViewMapTooltip}>
-                <button
-                  onClick={this.handleToggleOverviewMap}
-                  type="button"
-                  className="btn btn-success"
-                >
-                  <span
-                    className="glyphicon glyphicon-globe"
-                    aria-hidden="true"
-                  />
-                </button>
-              </OverlayTrigger>
-              <OverlayTrigger placement="bottom" overlay={downloadTooltip}>
+              <OverlayTrigger placement="right" overlay={downloadTooltip}>
                 <a
                   id="btnDownload"
-                  className="btn btn-success"
+                  className="btn btn-map"
                   href={`${SERVER_URL}/streetView/getImage?svid=${
                     m.properties.svid
                   }&download=true`}
@@ -113,6 +100,19 @@ class Main extends Component {
                     aria-hidden="true"
                   />
                 </a>
+              </OverlayTrigger>
+              <OverlayTrigger placement="right" overlay={overViewMapTooltip}>
+                <button
+                  id="btnToggleOverview"
+                  onClick={this.handleToggleOverviewMap}
+                  type="button"
+                  className="btn btn-map"
+                >
+                  <span
+                    className="glyphicon glyphicon-globe"
+                    aria-hidden="true"
+                  />
+                </button>
               </OverlayTrigger>
             </div>
 

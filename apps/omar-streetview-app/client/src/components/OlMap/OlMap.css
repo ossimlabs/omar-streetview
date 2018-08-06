@@ -3,12 +3,12 @@
   height: 200px;
   position: absolute;
   left: 20px;
-  bottom: 46px;
+  bottom: 10px;
   width: 200px;
   z-index: 1;
 }
 .ol-viewport {
-  border-radius: 25px;
+  border-radius: 15px;
   /* border: 1px solid;
   border-color: black; */
 }
