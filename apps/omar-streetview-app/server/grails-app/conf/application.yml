@@ -102,7 +102,8 @@ environments:
     production:
         dataSource:
             dbCreate: none
-            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+#            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
             properties:
                 jmxEnabled: true
                 initialSize: 5
@@ -122,27 +123,19 @@ environments:
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 ---
-environments:
-  development:
-    streetview:
-      database:
-        name: streetview-db
-        user: postgres
-        password: postgres
-        host: localhost
-      shapeFile:
-        baseDir: /data/beijing-streetview
-        layerName: road_streetview_subset
-  production:
-    streetview:
-      database:
-        name: streetview-db
-        user: postgres
-        password: postgres
-        host: localhost
-      shapeFile:
-        baseDir: /data/beijing-streetview
-        layerName: road_streetview_subset
+streetview:
+  database:
+    name: streetview-db
+    user: postgres
+    password: postgres
+    host: localhost
+  shapeFile:
+    baseDir: /data/beijing-streetview
+    layerName: road_streetview_subset
+  images:
+    baseDir: /data/beijing-streetview/Images
+#    baseDir: s3://o2-test-data/beijing-streetview/Images
+#     profile: default
 
 ---
 security:
