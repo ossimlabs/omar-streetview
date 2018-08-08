@@ -4,7 +4,6 @@ import grails.async.web.AsyncController
 
 class StreetViewController implements AsyncController
 {
-
 	GeoscriptService geoscriptService
 
 	def index()
@@ -16,14 +15,13 @@ class StreetViewController implements AsyncController
 
 	def getImage()
 	{
-		if(params.download){
+		if(params.download) {
 				response.setHeader "Content-disposition", "attachment; filename=${params.svid}.jpg"
-			}
+		}
 
 		def ctx = startAsync()
+
 		ctx.start {
-
-
 			def results = geoscriptService.getImage( params )
 
 			response.contentLength = results.contentLength

@@ -11,6 +11,13 @@ import static geoscript.style.Symbolizers.*
 import org.springframework.util.FastByteArrayOutputStream
 import org.springframework.beans.factory.annotation.Value
 
+import com.amazonaws.auth.profile.ProfileCredentialsProvider
+import com.amazonaws.services.s3.AmazonS3ClientBuilder
+
+import org.springframework.util.FastByteArrayOutputStream
+
+import javax.annotation.PostConstruct
+
 class GeoscriptService
 {
 	@Value( '${streetview.database.name}' )
@@ -28,10 +35,31 @@ class GeoscriptService
 	@Value( '${streetview.shapeFile.layerName}' )
 	String layerName
 
-	@Value( '${streetview.shapeFile.baseDir}' )
-	String baseDir
+	// @Value( '${streetview.shapeFile.baseDir}' )
+	// String shapeFileBaseDir
+
+	@Value( '${streetview.images.baseDir}' )
+	String imagesBaseDir
 
 	static final int numBands = 4
+
+	def grailsApplication
+
+	def s3
+	def bucketName
+	def prefix
+
+	@PostConstruct
+	def init() {
+		def p = 's3://([^/]+)((/[^/]+)*)'
+		def m = imagesBaseDir =~ p
+
+		if ( m ) {
+			bucketName = m[0][1]
+			prefix = (m[0][2])[1..-1]
+			s3 = AmazonS3ClientBuilder.standard().withCredentials(getProvider()).build()
+		}
+	}
 
 	def getTile( def params )
 	{
@@ -103,11 +131,11 @@ class GeoscriptService
 
 		def layer = postgis[layerName]
 		def feature = layer.getFeatures( filter: "svid='${ svid }'", max: 1 )?.first()
-		def imageFile = "${ baseDir }/Images/${ feature.path }" as File
+		def results = getImageInputStream(feature.path)
 
 		postgis?.close()
 
-		[ contentType: 'image/jpeg', contentLength: imageFile.size(), file: imageFile.newInputStream() ]
+		[ contentType: 'image/jpeg', contentLength: results.size, file: results.inputStream ]
 	}
 
 	def findRecord( def params )
@@ -125,5 +153,31 @@ class GeoscriptService
 
 		postgis?.close()
 		record
+	}
+
+	def getImageInputStream(String path)
+	{
+	 	if ( s3 ) {
+			def key = "${prefix ?: ''}/${path}"
+
+			// println ([bucketName, key])
+
+			def s3Object = s3.getObject(bucketName, key)
+			def ostream = new FastByteArrayOutputStream(3_000_000)
+
+			ostream << s3Object.objectContent
+			s3Object.close()
+			[size: ostream.size(), inputStream: ostream.inputStream]
+	 	} else {
+			def imageFile = "${ imagesBaseDir }/${ path }" as File
+
+			[size: imageFile.size(), inputStream: imageFile.newInputStream()]
+		}
+	}
+
+	def getProvider()
+	{
+			def profileName = grailsApplication.config.images.profile
+			new ProfileCredentialsProvider(profileName ?: 'default')
 	}
 }
