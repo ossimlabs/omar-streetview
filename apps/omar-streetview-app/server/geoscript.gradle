@@ -1,5 +1,5 @@
 repositories {
-  maven { url "https://nexus.ossim.io/nexus/content/repositories/ossim-deps" }
+  maven { url "https://nexus.ossim.io/repository/all-repos" }
   maven { url "https://artifactory.ossim.io/artifactory/ossim-deps" }
 	maven { url "http://download.osgeo.org/webdav/geotools/" }
 	maven { url "http://repo.boundlessgeo.com/main" }
